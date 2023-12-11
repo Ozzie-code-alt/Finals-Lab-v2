@@ -49,7 +49,8 @@ function syntaxChecker(tokens) {
 const expression = "number = (x + 10) * 8";
 const expression1 = "thisIsValid = (x + 10) * 8";
 const expression2 = "thisIsInvalid = x + 10 * 8";
-const tokens = identifyTokens(expression1);
+const expression3 = "thisIsInvalid = x + 10 * (8 + 10)";
+const tokens = identifyTokens(expression3);
 
 
 console.log("############################ Identified Tokens with their Types #########################################");
