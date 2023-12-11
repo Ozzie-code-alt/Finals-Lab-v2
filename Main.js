@@ -20,23 +20,36 @@ function identifyTokens(expression) {
 }
 
 function syntaxChecker(tokens) {
-    const expectedTypes = ['Identifier', 'Operator', 'Operator', 'Operator', 'Operator', 'Literal', 'Literal', 'Literal'];
-    // removed local txt file for parsing here, because why dfuq? 
-    // console.log(expectedSet)
+    const expectedTypes = ['Identifier', 'Identifier', 'Operator', 'Operator', 'Operator', 'Operator', 'Literal', 'Literal'];
+    const expectedSet = new Set(expectedTypes);
     const tokenSet = new Set(tokens.map(token => token.type));
 
-    for (const expectedType of expectedTypes) {
+    for (const expectedType of expectedSet) {
         if (!tokenSet.has(expectedType)) {
             return false;
         }
+    }
+
+    const identifierCount = tokens.filter(token => token.type === 'Identifier').length;
+    const operatorCount = tokens.filter(token => token.type === 'Operator').length;
+    const literalCount = tokens.filter(token => token.type === 'Literal').length;
+    console.log(identifierCount)
+    console.log(operatorCount)
+    console.log(literalCount)
+    // Add conditions to check the counts
+    if (identifierCount !== 2 || operatorCount !== 4 || literalCount !== 2) {
+        return false;
     }
 
     return true;
 }
 
 
+
 const expression = "number = (x + 10) * 8";
-const tokens = identifyTokens(expression);
+const expression1 = "thisIsValid = (x + 10) * 8";
+const expression2 = "thisIsInvalid = x + 10 * 8";
+const tokens = identifyTokens(expression1);
 
 
 console.log("############################ Identified Tokens with their Types #########################################");
