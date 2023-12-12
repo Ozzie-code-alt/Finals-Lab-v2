@@ -47,7 +47,7 @@ function syntaxChecker(tokens) {
 
 
 const expression = "number = (x + 10) * 8.9";
-const expression1 = "thisIsValid = (x + 10) * 8";
+const expression1 = "number = (x + 10) * 8";
 const expression2 = "thisIsInvalid = x + 10 * e";
 const expression3 = "thisIsInvalid = x + 10 * (8 + 10)";
 const tokens = identifyTokens(expression);
@@ -72,14 +72,24 @@ if (isSyntaxValid) {
         return token.value + ": " + (isFloat ? 'float' : 'int');
     });
 
+    const container = literalTypes[1].split(" ").pop() // this is our float value grabber 
+    // console.log(container)
     const identifierTypes = tokens
-        .filter(token => token.type === 'Identifier')
-        .map(token => token.value + ": " + "int");
+    .filter(token => token.type === 'Identifier')
+    .map(token => token.value + ": " + "int");
     
-
+    const container2 = identifierTypes
+    const container3 = identifierTypes[0].split(" ").shift()
+    // console.log(container3 )
+    const indexNum = container2.indexOf("number: int")
+    if(indexNum > -1){ // if true
+        identifierTypes.splice(indexNum, 1)
+    }
+    // console.log(identifierTypes)
         
     console.log("\nIdentifier Types:");
-    console.log(identifierTypes.join('\n'));
+    console.log(`${container3} ${container}`)
+    console.log(identifierTypes.join('\n'))
     console.log("\nLiteral Types:");
     console.log(literalTypes.join('\n'));
 }
