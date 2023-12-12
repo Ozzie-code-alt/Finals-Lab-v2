@@ -36,7 +36,7 @@ function syntaxChecker(tokens) {
     console.log(identifierCount)
     console.log(operatorCount)
     console.log(literalCount)
-    // Add conditions to check the counts
+    // check counter
     if (identifierCount !== 2 || operatorCount !== 4 || literalCount !== 2) {
         return false;
     }
@@ -46,11 +46,11 @@ function syntaxChecker(tokens) {
 
 
 
-const expression = "number = (x + 10) * 8";
+const expression = "number = (x + 10) * 8.9";
 const expression1 = "thisIsValid = (x + 10) * 8";
-const expression2 = "thisIsInvalid = x + 10 * 8";
+const expression2 = "thisIsInvalid = x + 10 * e";
 const expression3 = "thisIsInvalid = x + 10 * (8 + 10)";
-const tokens = identifyTokens(expression3);
+const tokens = identifyTokens(expression);
 
 
 console.log("############################ Identified Tokens with their Types #########################################");
@@ -60,20 +60,26 @@ console.log(tokens.map(token => `${token.type}: ${token.value}`).join('\n'));
 const isSyntaxValid = syntaxChecker(tokens);
 console.log("\n ########################## Syntax Check Result ########################################");
 console.log(isSyntaxValid ? "Syntax is valid." : "Syntax is not valid.");
+// ... (your existing code)
 
 if (isSyntaxValid) {
     console.log("\n ###################################### DATA TYPES ###########################################")
+    
+    const literalTypes = tokens
+    .filter(token => token.type === 'Literal')
+    .map(token => {
+        const isFloat = token.value.includes('.');
+        return token.value + ": " + (isFloat ? 'float' : 'int');
+    });
+
     const identifierTypes = tokens
         .filter(token => token.type === 'Identifier')
-        .map(token => token.value + ": " + typeof token.value);
+        .map(token => token.value + ": " + "int");
+    
 
-    const literalTypes = tokens
-        .filter(token => token.type === 'Literal')
-        .map(token => token.value + ": " + (token.value.includes('.') ? 'int' : 'int'));
-
+        
     console.log("\nIdentifier Types:");
     console.log(identifierTypes.join('\n'));
-
     console.log("\nLiteral Types:");
     console.log(literalTypes.join('\n'));
 }
