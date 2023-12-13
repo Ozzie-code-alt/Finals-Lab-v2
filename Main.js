@@ -60,7 +60,6 @@ console.log(tokens.map(token => `${token.type}: ${token.value}`).join('\n'));
 const isSyntaxValid = syntaxChecker(tokens);
 console.log("\n ########################## Syntax Check Result ########################################");
 console.log(isSyntaxValid ? "Syntax is valid." : "Syntax is not valid.");
-// ... (your existing code)
 
 if (isSyntaxValid) {
     console.log("\n ###################################### DATA TYPES ###########################################")
